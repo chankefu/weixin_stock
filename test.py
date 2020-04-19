@@ -43,7 +43,7 @@ admin_wx = 'wxid_xxx'
 # 单人黑名单列表
 single_block_list = ['wxid_xxx']  # 最好把控制台微信加进去
 # 单人白名单列表
-single_receive_list = ['wxid_ZhengGefu']
+single_receive_list = ['wxid_xxx']
 # 群组接受名单
 group_receive_list = ['17208516283@chatroom']
 # 创建remark_name字典
