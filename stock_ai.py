@@ -15,12 +15,7 @@
 
 ###
 # -*- coding: utf-8 -*-
-# @Time    : 2019/11/27 23:00
-# @Author  : Leon
-# @Email   : 1446684220@qq.com
-# @File    : test.py
-# @Desc    :
-# @Software: PyCharm
+
 
 from WechatPCAPI import WechatPCAPI
 import time,datetime
@@ -202,17 +197,6 @@ def thread_handle_message(wx_inst):
                                             wx_inst.send_text(from_chatroom_wxid, reply)
                                         else:
                                             wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票')
-                                       
-                                        # for item in stock_data:
-                                        #     if stock_name in item:
-                                        #         stock_code=item[:6]
-                                        #         reply=query_reply(stock_code,'f58','f43','f170','f137','f193','f140','f194','f49','f161')
-                                        #         wx_inst.send_text(from_chatroom_wxid, reply)
-                                        #         # wx_inst.send_text(from_chatroom_wxid, item[:6])
-                                        #         break
-                                            # else:
-                                            #     wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票')
-                                            #     break
         except:
             pass
 
