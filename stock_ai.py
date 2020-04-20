@@ -103,12 +103,12 @@ def thread_handle_message(wx_inst):
         if send_set_time()==True:
             url1='http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:2&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52865676&cb=jQuery1830317240029036183_1585970213997&_=1585970285606'
             bk1="行业板块"
-            filepath1 = os.getcwd()+'\\'+fund_analysis(url1,bk1)
+            filepath1 = os.path.join(os.getcwd(),fund_analysis(url1,bk1))
             print(filepath1)
             wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath1)
             url2= 'http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:3&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52860548&cb=jQuery183021539183328293965_1585815495642&_=1585816450894'
             bk2="概念板块"
-            filepath2 = os.getcwd()+'\\'+fund_analysis(url2,bk2)
+            filepath2 = os.path.join(os.getcwd(),fund_analysis(url2,bk2))
             wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath2)
 
 
@@ -164,19 +164,30 @@ def thread_handle_message(wx_inst):
                             from_chatroom_wxid = message.get('data', {}).get('from_chatroom_wxid', '')
                             # from_chatroom_nickname = message.get('data', {}).get('from_chatroom_nickname', '')
                             if msg_content[:3]=='@钩子':
-                                if "行业" in msg_content:
-                                    url1='http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:2&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52865676&cb=jQuery1830317240029036183_1585970213997&_=1585970285606'
-                                    bk1="行业板块"
-                                    filepath1 = os.getcwd()+'\\'+fund_analysis(url1,bk1)
-                                    # wx_inst.send_text(from_chatroom_wxid, filepath1)
-                                    wx_inst.send_img(to_user= from_chatroom_wxid, img_abspath=filepath1)
-                                if '概念' in msg_content:
-                                    url2= 'http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:3&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52860548&cb=jQuery183021539183328293965_1585815495642&_=1585816450894'
-                                    bk2="概念板块"
-                                    filepath2 = os.getcwd()+'\\'+fund_analysis(url2,bk2)
-                                    wx_inst.send_img(to_user= from_chatroom_wxid, img_abspath=filepath2)
+                                # if "行业" in msg_content:
+                                #     url1='http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:2&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52865676&cb=jQuery1830317240029036183_1585970213997&_=1585970285606'
+                                #     bk1="行业板块"
+                                #     filepath1 = os.path.join(os.getcwd(),fund_analysis(url1,bk1))
+                                #     print(filepath1)
+                                #     wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath1)
+                                # if '概念' in msg_content:
+                                #     url2= 'http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:3&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52860548&cb=jQuery183021539183328293965_1585815495642&_=1585816450894'
+                                #     bk2="概念板块"
+                                #     filepath2 = os.path.join(os.getcwd(),fund_analysis(url2,bk2))
+                                #     wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath2)
                                 if msg_content[4:10]=="":
                                     wx_inst.send_text(from_chatroom_wxid, '1、本程序在交易日开盘时间段每隔半小时自动发送行业、概念板块资金主力流向图\n2、自行查询行业、概念板块资金请使用"@糖吉 行业"的格式\n3、查询个股情况请输入“@糖吉 中国平安”的格式')
+                                elif msg_content[4:10].replace(" ","")=="行业":
+                                    url1='http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:2&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52865676&cb=jQuery1830317240029036183_1585970213997&_=1585970285606'
+                                    bk1="行业板块"
+                                    filepath1 = os.path.join(os.getcwd(),fund_analysis(url1,bk1))
+                                    print(filepath1)
+                                    wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath1)
+                                elif msg_content[4:10].replace(" ","")=="概念":
+                                    url2= 'http://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=500&po=1&np=1&ut=b2884a393a59ad64002292a3e90d46a5&fltt=2&invt=2&fid=f62&fs=m:90+t:3&stat=1&fields=f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124&rt=52860548&cb=jQuery183021539183328293965_1585815495642&_=1585816450894'
+                                    bk2="概念板块"
+                                    filepath2 = os.path.join(os.getcwd(),fund_analysis(url2,bk2))
+                                    wx_inst.send_img(to_user=from_chatroom_wxid, img_abspath=filepath2)
                                 else:           # msg_content[4:]!="":
                                     # print(msg_content)
                                     #判断是否直接输入了股票代码，是则直接查询
@@ -186,7 +197,7 @@ def thread_handle_message(wx_inst):
                                             reply=query_reply(stock_exist(stock_code,1),'f58','f43','f170','f137','f193','f140','f194','f49','f161')
                                             wx_inst.send_text(from_chatroom_wxid, reply)
                                         else:
-                                            wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票1')
+                                            wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票')
                                         # for item in stock_data:
                                         #     if stock_code in item:
                                         #         reply=query_reply(stock_code,'f58','f43','f170','f137','f193','f140','f194','f49','f161')
@@ -205,7 +216,7 @@ def thread_handle_message(wx_inst):
                                             reply=query_reply(stock_exist(stock_name,2),'f58','f43','f170','f137','f193','f140','f194','f49','f161')
                                             wx_inst.send_text(from_chatroom_wxid, reply)
                                         else:
-                                            wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票2')
+                                            wx_inst.send_text(from_chatroom_wxid, '输入有误或者不存在该股票')
                                        
                                         # for item in stock_data:
                                         #     if stock_name in item:

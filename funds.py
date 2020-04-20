@@ -130,6 +130,8 @@ def fund_analysis(url,bk):
     plt.ioff()  # 显示完后一定要配合使用plt.ioff()关闭交互模式，否则可能出奇怪的问题
     # plt.clf()
     plt.close()
+    pic_title = pic_title.replace("\n", "")+".png"
+    return pic_title
 
 
 
